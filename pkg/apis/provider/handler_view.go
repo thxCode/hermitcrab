@@ -70,12 +70,12 @@ func (r *DownloadArchiveRequest) SetGinContext(ctx *gin.Context) {
 }
 
 var regexValidArchive = regexp.MustCompile(
-	`^terraform-provider-(?P<type>\w+)_(?P<version>[\w|\\.]+)_(?P<os>[a-z]+)_(?P<arch>[a-z0-9]+)\.zip$`,
+	`^terraform-provider-(?P<type>\w+)[_-](?P<version>[\w|\\.]+)[_-](?P<os>[a-z]+)[_-](?P<arch>[a-z0-9]+)([_-].*)?\.zip$`,
 )
 
 func (r *DownloadArchiveRequest) Validate() error {
 	ps := regexValidArchive.FindStringSubmatch(r.Archive)
-	if len(ps) != 5 {
+	if len(ps) < 5 {
 		return errors.New("invalid archive")
 	}
 	ps = ps[1:]

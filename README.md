@@ -175,7 +175,7 @@ Hermit Crab automatically synchronizes the in-use versions per 30 minutes, if th
 
 Hermit Crab only performs a checksum verification on the downloaded archives. For archives that already exist in the implied or explicit directory, checksum verification is not performed.
 
-Hermit Crab only allows downloading the archives whose name matches the [Terraform Release Rules](https://developer.hashicorp.com/terraform/registry/providers/publishing#manually-preparing-a-release), which means the archive name must be `terraform-provider-<TYPE>_<VERSION>_<OS>_<ARCH>.zip`.
+Hermit Crab allows downloading the archives matching `^terraform-provider-(?P<type>\w+)[_-](?P<version>[\w|\\.]+)[_-](?P<os>[a-z]+)[_-](?P<arch>[a-z0-9]+)([_-].*)?\.zip$`, but it is recommended to follow the [Terraform Release Rules](https://developer.hashicorp.com/terraform/registry/providers/publishing#manually-preparing-a-release).
 
 # License
 

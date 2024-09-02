@@ -31,11 +31,16 @@ func Test_regexValidArchive(t *testing.T) {
 			given:    "terraform-provider-foo__darwin_amd64.zip.zip",
 			expected: false,
 		},
+		// See https://github.com/seal-io/hermitcrab/issues/15.
+		{
+			given:    "terraform-provider-teleport-v14.3.3-darwin-arm64-bin.zip",
+			expected: true,
+		},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.given, func(t *testing.T) {
 			ps := regexValidArchive.FindStringSubmatch(tc.given)
-			assert.Equal(t, tc.expected, len(ps) == 5)
+			assert.Equal(t, tc.expected, len(ps) >= 5)
 		})
 	}
 }
