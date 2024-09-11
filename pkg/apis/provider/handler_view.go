@@ -3,6 +3,7 @@ package provider
 import (
 	"errors"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -45,7 +46,7 @@ func (r *GetMetadataRequest) Validate() error {
 }
 
 func (r *GetMetadataRequest) Version() string {
-	return r.Action[:len(r.Action)-5]
+	return strings.TrimPrefix(r.Action[:len(r.Action)-5], "v")
 }
 
 type (
@@ -84,7 +85,7 @@ func (r *DownloadArchiveRequest) Validate() error {
 		return errors.New("invalid type")
 	}
 
-	r.Version = ps[1]
+	r.Version = strings.TrimPrefix(ps[1], "v")
 	r.OS = ps[2]
 	r.Arch = ps[3]
 

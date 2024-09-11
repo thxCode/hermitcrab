@@ -60,7 +60,7 @@ jobs:
             **/go.sum
       - name: Setup Toolbox
         timeout-minutes: 5
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           # restore/save service binaries, e.g. goimports, golangci-lint, commitsar.
           key: toolbox-${{ runner.os }}
@@ -72,7 +72,7 @@ jobs:
           LINT_DIRTY: "true"
           PACKAGE_BUILD: "false"
       - name: Archive Publish Result
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         with:
           # save package resources, e.g. go build result, downloaded UI, entrypoint script.
           key: archive-${{ runner.os }}-${{ github.sha }}
@@ -114,7 +114,7 @@ jobs:
           password: ${{ secrets.CI_DOCKERHUB_PASSWORD }}
       - name: Unarchive Publish Result
         timeout-minutes: 5
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           # restore package resources, e.g. go build result, downloaded UI, entrypoint script.
           key: archive-${{ runner.os }}-${{ github.sha }}
